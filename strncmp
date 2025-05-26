@@ -15,3 +15,25 @@ int	ft_strncmp(char *s1, char *s2, unsigned int n)
 		n--;
 	}
 }
+
+void	ft_print(int	n, char	*a, char	*b)
+{
+	if (n == 0)
+		printf("first %d characters of str1 is equal to str2", index);
+	elif (n < 0)
+		printf("str1 is less than str2 : %d", n);
+	else
+		printf("str1 is greater than str2 : %d", n);
+}
+
+int	main(void)
+{
+	int	result;
+	int index;
+	char	str1[] = "";
+	char	str2[] = "";
+	
+	index = ;
+	result = ft_strncmp(str1, str2, index);
+	ft_print(result, str1, str2);
+}
