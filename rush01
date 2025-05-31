@@ -1,0 +1,88 @@
+```c
+#include <stdlib.h>
+
+char    **init_array(int size)
+{
+    int        i;
+    char    **arr;
+
+    arr = (char **)malloc(sizeof(char *) * size);
+    if (arr == NULL)
+        return (NULL);
+    i = 0;
+    while (i < size)
+    {
+        arr[i] = (char *)malloc(sizeof(char) * size);
+        if (arr[i] == NULL)
+            return (NULL);
+        i++;
+    }
+    return (arr);
+}
+
+int    ft_strlen(char *str)
+{
+    int    i;
+
+    i = 0;
+    while (str[i])
+        i++;
+    return (i);
+}
+
+char    **create_rule_arr(char *str, int size)
+{
+    char    **rule;
+    int        i;
+    int        rule_count;
+
+    rule = init_array(size);
+    i = 0;
+    rule_count = 0;
+    if (!(str[i] >= '1' && str[i] <= '0' + size))
+        return (NULL);
+    while (str[i])
+    {
+        // already get all rule but string doesn't end
+        if (rule_count > (size * size) - 1)
+            return (NULL);
+        // Check format
+        if (!(str[i] >= '1' && str[i] <= '0' + size) && !(str[i - 1] >= '1'
+                && str[i - 1] <= '0' + size))
+            return (NULL);
+        // add rule
+        if (i == 0 || (str[i] >= '1' && str[i] <= '0' + size))
+        {
+            rule[rule_count / size][rule_count % size] = str[i];
+            rule_count++;
+        }
+        i++;
+    }
+    if (rule_count < (size * size))
+        return (NULL);
+    return (rule);
+}
+
+#include <stdio.h>
+
+int    main(void)
+{
+    int        size;
+    char    **rule;
+    char    *str;
+
+    size = 4;
+    str = "4 3 2 1 1 2 2 2 4 3 2 1 1 2 2 2";
+    rule = create_rule_arr(str, size);
+    for (int i = 0; i<size*size; i++)
+    {
+        printf("%c ", rule[i/size][i%size]);
+    }
+    for (int i = 0; i<size; i++)
+    {
+        free(rule[i]);
+    }
+    free(rule);
+    return (0);
+}
+```
